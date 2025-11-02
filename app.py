@@ -146,7 +146,7 @@ presentation_pane = html.Div(dbc.Container([
     html.H2("Mode d'emploi"),
     html.P(["Sélectionnez la commune à analyser dans la liste déroulante. ",
             "Le bouton ",
-            dbc.Button("Filtrer",id='open-offcanvas-2', n_clicks=0), 
+            dbc.Button("Filtrer", id='open-offcanvas-2', n_clicks=0),
             " vous permet de restreindre l'analyse à certains profils ",
             "de répondants."]),
     html.P("Les différents onglets présentent diverses analyses."),
@@ -244,6 +244,7 @@ violence_pane = dbc.Container()
 # Initialize the app
 app = Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
+app.title = 'Baromètre Vélo 2025 Métropole Rouen Normandie'
 
 # App layout
 app.layout = html.Div([
@@ -324,6 +325,34 @@ io.extend([
 
 @callback(tuple(io))
 def update(commune, genre, expertise, pratique, age):
+    """
+    Permet la mise à jour des champs variables.
+
+    A chaque interaction sur les champs Inout, cette fonction est appelée. Elle
+    permet la mise à jour des champs variables.
+
+    Parameters
+    ----------
+    commune : str
+        Châine de caractère représentant la commune.
+    genre : list
+        Liste d'entiers représentant les genres des répondants dont les 
+        réponses sont analysées.
+    expertise : list
+        Liste d'entiers représentant les niveaux d'expertise des répondants
+        dont les réponses sont analysées.
+    pratique : list
+        Liste d'entiers représentant les cyclistes et non-cyclistes.
+    age : list
+        Liste d'entiers représentants les différentes catégories d'âges des
+        répondants dont les réponses sont retenues pour analyse
+
+    Returns
+    -------
+    tuple
+        Tuple composé des différentes valeurs pour les champs variables.
+
+    """
     commune_selection = df['commune'] == commune
     genre_selection = df['q47'].isin(genre) | df['q56'].isin(genre)
     expertise_selection = df['q37'].isin(expertise) | df['q52'].isin(expertise)
@@ -386,6 +415,24 @@ def update(commune, genre, expertise, pratique, age):
     [State("offcanvas", "is_open")],
 )
 def toggle_offcanvas(n1, n2, is_open):
+    """
+    Permet l'ouverture ou la fermeture du panneau de sélection.
+
+    Parameters
+    ----------
+    n1 : int
+        Valeur du bouton n1.
+    n2 : int
+        Valeur du bouton n2.
+    is_open : bool
+        Valeur d'ouverture du panneau de sélection.
+
+    Returns
+    -------
+    bool
+        Renvoie la valeur d'ouverture du panneau de sélection.
+
+    """
     if n1 | n2:
         return not is_open
     return is_open

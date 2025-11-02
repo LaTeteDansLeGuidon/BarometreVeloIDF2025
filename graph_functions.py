@@ -11,7 +11,6 @@ import dash_bootstrap_components as dbc
 import json
 from dash import html, dcc
 
-
 questions = dict()
 with open('./questions.json', 'r') as fd:
     questions = json.load(fd)
@@ -27,6 +26,24 @@ color = {'A+': 'rgb(43,121,16)',
 
 
 def categorie_info(data, categorie):
+    """
+    Revoie des informations (badge et histogramme) pour une catégorie
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        Données à partir desquelles sont déterminées les valeurs de retour.
+    categorie : str
+        Nom de la catégorie.
+
+    Returns
+    -------
+    badge : dash_bootstrap-components.Badge
+        Badge dont le contenu les la note et dont la couleur est adaptée.
+    histogramme : plotly.graph_objects.Figure
+        Histograme de la répartition des notes de la catégorie.
+
+    """
     note = round(data[categorie].mean(), 2)
     class_name = 'A+' if note>4.6 else 'A' if note > 4.3 else \
         'B' if note > 3.9 else 'C' if note > 3.5 else 'D' if note > 3.1 else \
@@ -40,6 +57,23 @@ def categorie_info(data, categorie):
 
 
 def badge(data, colonne):
+    """
+    Revoie un badge avec la note et la couleur.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        Données à partir desquelles sont calculées le badge.
+    colonne : str
+        Nom de la colonne à partir de laquelle sera calculée le badge.
+
+    Returns
+    -------
+    dash_bootstrap_components.Badge
+        Badge contenant la note moyenne de la colonne et dont la couleur est
+        adaptée.
+
+    """
     m = round(data[colonne].mean(), 2)
     class_name = 'A+' if m>4.6 else 'A' if m > 4.3 else \
         'B' if m > 3.9 else 'C' if m > 3.5 else 'D' if m > 3.1 else \
@@ -48,6 +82,26 @@ def badge(data, colonne):
 
 
 def question_info(data, question):
+    """
+    Renvoie les informations (Badge et histogramme) concernant une question du
+    baromètre
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        Données à partir desquelles sont calculées les informations.
+    question : str
+        intitulé de la question à analyser.
+
+    Returns
+    -------
+    badge : dash_bootstrap_components.Badge
+        Badge contenant la note moyenne à la question et dont la couleur est
+        ajustée en fonction.
+    histogram : plotly.graph_objects.Figure
+        histogramme de la répartition des notes sur la question.
+
+    """
     my_question = questions[question]
     q = my_question['question']
     labels = [k + '-' + v if v else k
@@ -69,6 +123,22 @@ def question_info(data, question):
 
 
 def question_histogramme(data, question):
+    """
+    Renvoi l'histogramme de répartition des notes à la question.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        Données à partir desquelles est établi l'histogramme.
+    question : str
+        Nom de la question dont on souhaite l'histogramme.
+
+    Returns
+    -------
+    histogram : plotly.graph_objects.Figure
+        Histogramme de répartition des notes sur la question.
+
+    """
     my_question = questions[question]
     q = my_question['question']
     labels = [v if v else k for k, v in my_question['answer'].items()]
@@ -83,6 +153,23 @@ def question_histogramme(data, question):
 
 
 def question_multiple_histogramme(data, question):
+    """
+    Renvoi l'histogramme de répartition des choix sur une question à choix
+    multiple.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        Données à partir desquelles est établi l'histogramme.
+    question : str
+        Nom de la question dont on souhaite l'histogramme.
+
+    Returns
+    -------
+    histogram : plotly.graph_objects.Figure
+        Histogramme de répartition des réponses.
+
+    """
     my_question = questions[question]
     q = my_question['question']
     labels = [v if v else k for k, v in my_question['answer'].items()]
@@ -101,11 +188,45 @@ def question_multiple_histogramme(data, question):
 
 
 def commentaires(data):
+    """
+    Renvoie la liste des commentaires textuels
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        DataFrame des données desquelles ont souhaite la liste des 
+        commentaires.
+
+    Returns
+    -------
+    list
+        liste de ListGroupItem dont le contenu sont les différents
+        commentaires textuels.
+
+    """
     d = data['q35'].copy()
     return [dbc.ListGroupItem(text) for text in d.dropna()]
 
 
 def panel_content(categorie, qlist):
+    """
+    Permet la création d'un panneau pour les onglets correspondant aux
+    différentes catégories'
+
+    Parameters
+    ----------
+    categorie : str
+        Nom de la catégorie.
+    qlist : list
+        liste des noms de question pour la catégories.
+
+    Returns
+    -------
+    dahs_bootstrap_components.Container
+        Container contenant les emplacements pour les informations de la 
+        catégorie et celles de différentes questions qui la composent.
+
+    """
     content = [html.H3(['Note moyenne pour la catégorie : ',
                         html.Span(id='note_'+categorie)]),
                dcc.Graph(id='histogramme_'+categorie)
