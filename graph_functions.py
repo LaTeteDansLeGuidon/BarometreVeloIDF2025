@@ -47,10 +47,11 @@ def badge(data, colonne):
     return dbc.Badge([class_name+' : '+str(m)], color=color[class_name])
 
 
-def question_info(data, question) : 
+def question_info(data, question):
     my_question = questions[question]
     q = my_question['question']
-    labels = [k + '-' + v if v else k for k, v in my_question['answer'].items()]
+    labels = [k + '-' + v if v else k
+              for k, v in my_question['answer'].items()]
     moyenne = round(data[question].astype(float).mean(), 2)
     class_name = 'A+' if moyenne>4.6 else 'A' if moyenne > 4.3 else \
         'B' if moyenne > 3.9 else 'C' if moyenne > 3.5 else \
@@ -67,7 +68,7 @@ def question_info(data, question) :
     return badge, histogram
 
 
-def question_histogramme(data,question):
+def question_histogramme(data, question):
     my_question = questions[question]
     q = my_question['question']
     labels = [v if v else k for k, v in my_question['answer'].items()]
@@ -80,33 +81,41 @@ def question_histogramme(data,question):
     histogram = px.bar(x=labels, y=count, title=q, labels={'x': '', 'y': ''})
     return histogram
 
-def question_multiple_histogramme(data,question):
+
+def question_multiple_histogramme(data, question):
     my_question = questions[question]
     q = my_question['question']
-    labels = [v if v else k for k,v in my_question['answer'].items()]
+    labels = [v if v else k for k, v in my_question['answer'].items()]
     d = data[[question]].copy()
-    d.loc[d[question].isna(),question]=''
-    d['l'] = d[question].apply(lambda v : [int(i) for i in v.split(',') if i])
-    l = []
+    d.loc[d[question].isna(), question] = ''
+    d['l'] = d[question].apply(lambda v: [int(i) for i in v.split(',') if i])
+    liste = []
     for ll in list(d['l']):
-        l.extend(ll)
-    h = {k:l.count(int(k)) for k in my_question['answer']}
-    histogram = px.bar(x=labels, y = h.values(), title=q,labels={'x':'','y':''})
+        liste.extend(ll)
+    h = {k: liste.count(int(k)) for k in my_question['answer']}
+    histogram = px.bar(x=labels,
+                       y=h.values(),
+                       title=q,
+                       labels={'x': '', 'y': ''})
     return histogram
+
 
 def commentaires(data):
     d = data['q35'].copy()
     return [dbc.ListGroupItem(text) for text in d.dropna()]
 
-def panel_content(categorie,qlist):
-    content = [html.H3(['Note moyenne pour la catégorie : ',html.Span('',id='note_'+categorie)]),
+
+def panel_content(categorie, qlist):
+    content = [html.H3(['Note moyenne pour la catégorie : ',
+                        html.Span(id='note_'+categorie)]),
                dcc.Graph(id='histogramme_'+categorie)
                ]
-    
+
     for i in qlist:
         content.extend([
             html.H2([questions[i]['question']]),
-            html.H3(['Note moyenne pour la question : ',html.Span('',id='moyenne_'+i)]),
+            html.H3(['Note moyenne pour la question : ',
+                     html.Span(id='moyenne_'+i)]),
             dcc.Graph(id='histogramme_'+i)
             ])
     return dbc.Container(content)

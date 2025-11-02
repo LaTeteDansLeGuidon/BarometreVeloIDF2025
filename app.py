@@ -46,22 +46,22 @@ selection_pane = dbc.Offcanvas([
             html.Fieldset([
                 html.Legend("Niveau d'expertise déclaré"),
                 dcc.Checklist([
-                    {'label':'1 - Débutant·e', 'value':1},
-                    {'label':'2', 'value':2},
-                    {'label':'3', 'value':3},
-                    {'label':'4', 'value':4},
-                    {'label':'5', 'value':5},
-                    {'label':'6 - Expert·e', 'value':6}],
-                    value=[1,2,3,4,5,6],
+                    {'label': '1 - Débutant·e', 'value': 1},
+                    {'label': '2', 'value': 2},
+                    {'label': '3', 'value': 3},
+                    {'label': '4', 'value': 4},
+                    {'label': '5', 'value': 5},
+                    {'label': '6 - Expert·e', 'value': 6}],
+                    value=[1, 2, 3, 4, 5, 6],
                     id='expertise_selection'
                     )
                 ]),
             html.Fieldset([
                 html.Legend("Pratiquant"),
                 dcc.Checklist([
-                    {'label':'Cycliste', 'value':1},
-                    {'label':'Non cycliste', 'value':2}],
-                    value=[1,2],
+                    {'label': 'Cycliste', 'value': 1},
+                    {'label': 'Non cycliste', 'value': 2}],
+                    value=[1, 2],
                     id='pratiquant_selection'
                     )
                 ])
@@ -70,18 +70,18 @@ selection_pane = dbc.Offcanvas([
             html.Fieldset([
                 html.Legend("Tranche d'âge"),
                 dcc.Checklist([
-                    {'label':'Moins de 11 ans', 'value':0},
-                    {'label':'11 - 14 ans', 'value':1},
-                    {'label':'15 - 18 ans', 'value':2},
-                    {'label':'19 - 24 ans', 'value':3},
-                    {'label':'25 - 34 ans', 'value':4},
-                    {'label':'35 - 44 ans', 'value':5},
-                    {'label':'45 - 54 ans', 'value':6},
-                    {'label':'55 - 64 ans', 'value':7},
-                    {'label':'65 - 75 ans', 'value':8},
-                    {'label':'Plus de 75 ans', 'value':9},
-                    {'label':'Ne se prononce pas', 'value':10}],
-                    value=[0,1,2,3,4,5,6,7,8,9,10],
+                    {'label': 'Moins de 11 ans', 'value': 0},
+                    {'label': '11 - 14 ans', 'value': 1},
+                    {'label': '15 - 18 ans', 'value': 2},
+                    {'label': '19 - 24 ans', 'value': 3},
+                    {'label': '25 - 34 ans', 'value': 4},
+                    {'label': '35 - 44 ans', 'value': 5},
+                    {'label': '45 - 54 ans', 'value': 6},
+                    {'label': '55 - 64 ans', 'value': 7},
+                    {'label': '65 - 75 ans', 'value': 8},
+                    {'label': 'Plus de 75 ans', 'value': 9},
+                    {'label': 'Ne se prononce pas', 'value': 10}],
+                    value=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                     id='age_selection')
                 ])
             ])
@@ -94,48 +94,77 @@ selection_pane = dbc.Offcanvas([
 
 # Panneau de présentation
 presentation_pane = html.Div(dbc.Container([
-    html.H1('Résultats du Baromètre Vélo 2025 sur la Métropole Rouen Normandie'),
+    html.H1(["Résultats du Baromètre Vélo 2025 ",
+             "sur la Métropole Rouen Normandie"]),
     html.H2('Présentation'),
     html.P(["Le ",
-            html.A("baromètre vélo" ,href="https://www.barometre-velo.fr/"),
-            " est une grande enquête citoyenne organisée à l'échelle nationale par la ",
-            html.A("Fédération des Usagères et Usagers de la Bicylette (FUB)",href="https://www.fub.fr/"),
-            ". Elle vise à recueillir l'appréciation des répondants sur les conditions de pratique du vélo à l'échelle des communes. ",
-            "La méthodologie de l'enquête et ses résultats sont présentés sur le site du baromètre.",
+            html.A("baromètre vélo", href="https://www.barometre-velo.fr/"),
+            " est une grande enquête citoyenne organisée à l'échelle ",
+            "nationale par la ",
+            html.A("Fédération des Usagères et Usagers de la Bicylette (FUB)",
+                   href="https://www.fub.fr/"),
+            ". Elle vise à recueillir l'appréciation des répondants sur les ",
+            "conditions de pratique du vélo à l'échelle des communes. ",
+            "La méthodologie de l'enquête et ses résultats sont présentés ",
+            "sur le site du baromètre.",
             ]),
-    html.P(["Ce site a pour vocation d'offrir des outils permettant une analyse fine des résultats du baromètre vélo ",
+    html.P(["Ce site a pour vocation d'offrir des outils permettant une ",
+            "analyse fine des résultats du baromètre vélo ",
             "sur le territoire de la ",
-            html.A("Métropole Rouen Normandie",href="https://www.metropole-rouen-normandie.fr/"),
-            ". Outre les résultats déjà disponibles sur le site du baromètre, ce site permet : ",
+            html.A("Métropole Rouen Normandie",
+                   href="https://www.metropole-rouen-normandie.fr/"),
+            ". Outre les résultats déjà disponibles sur le site du ",
+            "baromètre, ce site permet : ",
             html.Ul([
-                html.Li("d'analyser les résultats pour les communes non classées"),
-                html.Li("d'analyser les résultats en fonction du profil des répondants"),
+                html.Li(["d'analyser les résultats pour ",
+                         "les communes non classées"]),
+                html.Li(["d'analyser les résultats en fonction du profil ",
+                         "des répondants"]),
                 html.Li("d'analyser les données sociologiques des répondants"),
-                html.Li("d'analyser les caractéristiques de pratique du vélo des répondants"),
-                html.Li("d'analyser le rapport des répondants aux autres modes de déplacements"),
+                html.Li(["d'analyser les caractéristiques de pratique ",
+                         "du vélo des répondants"]),
+                html.Li(["d'analyser le rapport des répondants aux autres ",
+                         "modes de déplacements"]),
                 ])
             ]),
-    html.P(["Ce site exploite les données des contributions individuelles recueillies lors de l'enquête et mises à disposition sur la ",
-            html.A("plateforme Opendata de la FUB", href="https://opendata.parlons-velo.fr/"),
+    html.P(["Ce site exploite les données des contributions individuelles ",
+            "recueillies lors de l'enquête et mises à disposition sur la ",
+            html.A("plateforme Opendata de la FUB",
+                   href="https://opendata.parlons-velo.fr/"),
             ". Ces données sont anonymes et conformes au RGPD."
             ]),
-    html.P(["Ce site est développé par Pierre Héroux pour le compte de l'association ",
-            html.A("SABINE",href="sabinerouenvelo.org"),
-            " qui promeut l'usage du vélo comme moyen de déplacement sur le territoire de la Métropole Rouen Normandie. ",
+    html.P(["Ce site est développé par Pierre Héroux pour le compte ",
+            "de l'association ",
+            html.A("SABINE", href="sabinerouenvelo.org"),
+            " qui promeut l'usage du vélo comme moyen de déplacement sur le ",
+            "territoire de la Métropole Rouen Normandie. ",
             "Son code source est disponible sur ",
-            html.A("https://github.com/PierreHeroux/BarometreVeloMRN2025",href="https://github.com/PierreHeroux/BarometreVeloMRN2025"),
+            html.A("https://github.com/PierreHeroux/BarometreVeloMRN2025",
+                   href="https://github.com/PierreHeroux/BarometreVeloMRN2025"),
             " sous licence GPL3.0"
             ]),
     html.H2("Mode d'emploi"),
-    html.P(["Sélectionnez la commune à analyser dans la liste déroulante. Le bouton ",
-            dbc.Button("Filtrer",id='open-offcanvas-2',n_clicks=0), 
-            " vous permet de restreindre l'analyse à certains profils de répondants."]),
+    html.P(["Sélectionnez la commune à analyser dans la liste déroulante. ",
+            "Le bouton ",
+            dbc.Button("Filtrer",id='open-offcanvas-2', n_clicks=0), 
+            " vous permet de restreindre l'analyse à certains profils ",
+            "de répondants."]),
     html.P("Les différents onglets présentent diverses analyses."),
     html.Ul([
-        html.Li("L'onglet Synthèse présente une analyse globale des résultats."),
-        html.Li("Les onglets 'Ressenti général', 'Sécurité', 'Confort', 'Efforts de la commune' et 'Stationnements et services' présentent chancun une analyse pour ces catégories de questions ainsi qu'une analyse de chacun des questions dans le détail."),
-        html.Li("L'onglet 'Commentaires' liste l'ensemble des commentaires textuels additionnels déposés par les répondants."),
-        html.Li("L'onglet 'Sociologie et pratique' donne une analyse des données sociologiques des répondants en distinguant les cyclistes et les non cyclistes. Il présente également des analyses relatives à la pratique du vélo et au rapport aux autres modes de déplacement.")
+        html.Li(["L'onglet Synthèse présente une analyse globale ",
+                 "des résultats."]),
+        html.Li(["Les onglets 'Ressenti général', 'Sécurité', 'Confort', ",
+                 "'Efforts de la commune' et 'Stationnements et services' ",
+                 "présentent chancun une analyse pour ces catégories de ",
+                 "questions ainsi qu'une analyse de chacun des questions ",
+                 "dans le détail."]),
+        html.Li(["L'onglet 'Commentaires' liste l'ensemble des commentaires ",
+                 "textuels additionnels déposés par les répondants."]),
+        html.Li(["L'onglet 'Sociologie et pratique' donne une analyse des ",
+                 "données sociologiques des répondants en distinguant les ",
+                 "cyclistes et les non cyclistes. Il présente également des ",
+                 "analyses relatives à la pratique du vélo et au rapport aux ",
+                 "autres modes de déplacement."])
         ])
     ]))
 
@@ -144,31 +173,38 @@ synthese_pane = dbc.Container(
     html.Div([
         html.H1(["Synthèse de l'évaluation donnée par le baromètre vélo pour ",
                  html.Span(id='commune')]),
-        html.H2(['Evaluation globale : ',html.Span('',id='note')]),
-        html.H3(['Ressenti général : ',html.Span('',id='ressenti')]),
-        html.H3(['Sécurité : ',html.Span('',id='securité')]),
-        html.H3(['Confort : ',html.Span('',id='confort')]),
-        html.H3(['Efforts de la commune : ',html.Span('',id='efforts')]),
-        html.H3(['Stationnement et services : ',html.Span('',id='stationnement')]),
-        html.H4(['Nombre de réponses : ',html.A(id='nb_rep')]),
-        html.H4(['Nombre de réponses valides : ',html.A(id='nb_val_rep')]),
-        html.H4(['Nombre de réponses de cyclistes : ',html.A(id='nb_rep_cyclist')]),
+        html.H2(['Evaluation globale : ', html.Span('', id='note')]),
+        html.H3(['Ressenti général : ', html.Span('', id='ressenti')]),
+        html.H3(['Sécurité : ', html.Span('', id='securité')]),
+        html.H3(['Confort : ', html.Span('', id='confort')]),
+        html.H3(['Efforts de la commune : ', html.Span('', id='efforts')]),
+        html.H3(['Stationnement et services : ',
+                 html.Span(id='stationnement')]),
+        html.H4(['Nombre de réponses : ', html.A(id='nb_rep')]),
+        html.H4(['Nombre de réponses valides : ', html.A(id='nb_val_rep')]),
+        html.H4(['Nombre de réponses de cyclistes : ',
+                 html.A(id='nb_rep_cyclist')]),
         ])
     )
 
 # Panneaux des catégories
-categories = {'ressenti':['q8','q9','q10','q11','q12','q13'],
-              'securite':['q14','q15','q16','q17','q18','q19'],
-              'confort':['q20','q21','q22','q23','q24'],
-              'efforts':['q25','q26','q27','q28'],
-              'services':['q29','q30','q31','q32']
+categories = {'ressenti': ['q8', 'q9', 'q10', 'q11', 'q12', 'q13'],
+              'securite': ['q14', 'q15', 'q16', 'q17', 'q18', 'q19'],
+              'confort': ['q20', 'q21', 'q22', 'q23', 'q24'],
+              'efforts': ['q25', 'q26', 'q27', 'q28'],
+              'services': ['q29', 'q30', 'q31', 'q32']
               }
 
-ressenti_pane = panel_content('ressenti',['q8','q9','q10','q11','q12','q13'])
-securite_pane = panel_content('securite',['q14','q15','q16','q17','q18','q19'])
-confort_pane = panel_content('confort',['q20','q21','q22','q23','q24'])
-effort_pane = panel_content('efforts',['q25','q26','q27','q28'])
-stationnement_pane = panel_content('services',['q29','q30','q31','q32'])
+ressenti_pane = panel_content('ressenti',
+                              ['q8', 'q9', 'q10', 'q11', 'q12', 'q13'])
+securite_pane = panel_content('securite',
+                              ['q14', 'q15', 'q16', 'q17', 'q18', 'q19'])
+confort_pane = panel_content('confort',
+                             ['q20', ' q21', 'q22', 'q23', 'q24'])
+effort_pane = panel_content('efforts',
+                            ['q25', 'q26', 'q27', 'q28'])
+stationnement_pane = panel_content('services',
+                                   ['q29', 'q30', 'q31', 'q32'])
 
 # Panneaux complémentaires
 
@@ -225,7 +261,8 @@ app.layout = html.Div([
         dcc.Tab(label='Sécurité', children=securite_pane),
         dcc.Tab(label='Confort', children=confort_pane),
         dcc.Tab(label='Efforts de la commune', children=effort_pane),
-        dcc.Tab(label='Stationnements et services', children=stationnement_pane),
+        dcc.Tab(label='Stationnements et services',
+                children=stationnement_pane),
         dcc.Tab(label='Commentaires', children=commentaires_pane),
         dcc.Tab(label='Sociologie et pratique', children=sociologie_pane),
         dcc.Tab(label='Violence motorisée', children=violence_pane)
@@ -357,4 +394,3 @@ def toggle_offcanvas(n1, n2, is_open):
 # Run the app
 if __name__ == '__main__':
     app.run(debug=False)
-              
