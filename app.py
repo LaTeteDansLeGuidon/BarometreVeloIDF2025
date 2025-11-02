@@ -200,7 +200,7 @@ ressenti_pane = panel_content('ressenti',
 securite_pane = panel_content('securite',
                               ['q14', 'q15', 'q16', 'q17', 'q18', 'q19'])
 confort_pane = panel_content('confort',
-                             ['q20', ' q21', 'q22', 'q23', 'q24'])
+                             ['q20', 'q21', 'q22', 'q23', 'q24'])
 effort_pane = panel_content('efforts',
                             ['q25', 'q26', 'q27', 'q28'])
 stationnement_pane = panel_content('services',
